@@ -1,3 +1,3 @@
 var MovieListEntry = (props) => (
-  <div>{props.movie.title}</div>
+  <div className="list-entry">{props.movie.title}</div>
 );
