@@ -1,7 +1,7 @@
 var MovieList = (props) => (
   <div>
     {props.movies.map((movie) => 
-    <div> Insert movie here! </div>)}
+    <MovieListEntry movie={movie} />)}
   </div>
 );
 
