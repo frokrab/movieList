@@ -1,6 +1,9 @@
 var App = (props) => (
   <div>
     <h2 className="page-title">Movie List</h2>
-    <MovieList movies={movies} />
+    <Search />
+    <div>
+      <MovieList movies={movies} />
+    </div>
   </div>
 );
