@@ -22,6 +22,7 @@ class App extends React.Component {
     return (
       <div>
         <h2 className="page-title">Movie List</h2>
+        <Submit />
         <Search searchHandler={this.searchHandler}/>
         <div>
           <MovieList movies={this.state.collection} />
