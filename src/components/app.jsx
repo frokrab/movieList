@@ -13,12 +13,13 @@ class App extends React.Component {
       if (movie.title.toLowerCase().includes(query.toLowerCase())) {
         relevantMovies.push(movie);
       }
-    this.setState({collection: relevantMovies});
     });
+    relevantMovies.length === 0 ? relevantMovies.push({title: 'No results matched your search'}) : null;
+    this.setState({collection: relevantMovies});
   }
 
   render() {
-    return(
+    return (
       <div>
         <h2 className="page-title">Movie List</h2>
         <Search searchHandler={this.searchHandler}/>
