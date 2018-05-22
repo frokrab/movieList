@@ -1,3 +1,6 @@
 var MovieListEntry = (props) => (
-  <div className="list-entry">{props.movie.title}</div>
+  <div>
+    <div className="list-entry">{props.movie.title}</div>
+    <button>Not watched</button>
+  </div>
 );

@@ -3,7 +3,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       collection: [],
-      displayed: []
+      displayed: [],
+      watched: [],
     };
     this.searchHandler = this.searchHandler.bind(this);
     this.addMovieHandler = this.addMovieHandler.bind(this);
@@ -20,14 +21,17 @@ class App extends React.Component {
     this.setState({displayed: relevantMovies});
   }
 
-  addMovieHandler(title) {
-    console.log('collecion item: ', this.state.collection[0]);
-    console.log('added movie: ', {title: title.toUpperCase()});
-    console.log('includes?: ', this.state.collection.includes({title: title.toUpperCase()}));
-    if (!this.state.collection.includes({title: title.toUpperCase()})) {
+  addMovieHandler(movieTitle) {
+    let includes = false;
+    this.state.collection.forEach(function(movie) {
+      if (movie.title.toUpperCase() === movieTitle.toUpperCase()) {
+        includes = true;
+      }
+    });
+    if (!includes) {
       this.setState({
-        collection: this.state.collection.concat([{title: title.toUpperCase()}]),
-        displayed: [{title: title.toUpperCase()}]
+        collection: this.state.collection.concat([{title: movieTitle}]),
+        displayed: [{title: movieTitle}]
       });
     }
   }
