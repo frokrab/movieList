@@ -4,7 +4,6 @@ class App extends React.Component {
     this.state = {
       collection: {},
       displayed: {},
-      watched: {}
     };
     this.searchHandler = this.searchHandler.bind(this);
     this.addMovieHandler = this.addMovieHandler.bind(this);
@@ -26,7 +25,10 @@ class App extends React.Component {
     let movieTitleKey = movieTitle.toUpperCase();
     if (!this.state.collection[movieTitleKey]) {
       let currentCollection = this.state.collection;
-      currentCollection[movieTitleKey] = {title: movieTitle};
+      currentCollection[movieTitleKey] = {
+        title: movieTitle,
+        watched: false
+      };
       this.setState({
         collection: currentCollection
       });
@@ -35,13 +37,9 @@ class App extends React.Component {
 
   toggleWatchHandler(movieTitle) {
     let movieTitleKey = movieTitle.toUpperCase();
-    let watchedList = this.state.watched;
-    if (!this.state.watched[movieTitleKey]) {
-      watchedList[movieTitleKey] = {title: movieTitle};
-    } else {
-      delete watchedList[movieTitleKey];
-    }
-    this.setState({watched: watchedList});
+    let currentCollection = this.state.collection;
+    currentCollection[movieTitleKey].watched = !currentCollection[movieTitleKey].watched;
+    this.setState({collection: currentCollection});
   }
 
   render() {
@@ -51,7 +49,7 @@ class App extends React.Component {
         <Submit addMovieHandler={this.addMovieHandler}/>
         <Search searchHandler={this.searchHandler}/>
         <div>
-          <MovieList toggleWatchHandler={this.toggleWatchHandler} movies={this.state.displayed} />
+          <MovieList toggleWatchHandler={this.toggleWatchHandler} displayed={this.state.displayed} watched={this.state.watched} notWatched={this.state.notWatched}/>
         </div>
       </div>
     );
