@@ -33,7 +33,15 @@ class App extends React.Component {
     }
   }
 
-  toggleWatchHandler() {
+  toggleWatchHandler(movieTitle) {
+    let movieTitleKey = movieTitle.toUpperCase();
+    let watchedList = this.state.watched;
+    if (!this.state.watched[movieTitleKey]) {
+      watchedList[movieTitleKey] = {title: movieTitle};
+    } else {
+      delete watchedList[movieTitleKey];
+    }
+    this.setState({watched: watchedList});
   }
 
   render() {
@@ -43,7 +51,7 @@ class App extends React.Component {
         <Submit addMovieHandler={this.addMovieHandler}/>
         <Search searchHandler={this.searchHandler}/>
         <div>
-          <MovieList movies={this.state.displayed} />
+          <MovieList toggleWatchHandler={this.toggleWatchHandler} movies={this.state.displayed} />
         </div>
       </div>
     );
