@@ -30,7 +30,11 @@ class App extends React.Component {
         watched: false
       };
       this.setState({
-        collection: currentCollection
+        collection: currentCollection,
+        displayed: {movieTitleKey: {
+          title: movieTitle,
+          watched: false
+        }}
       });
     }
   }
