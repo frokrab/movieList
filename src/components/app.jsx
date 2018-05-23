@@ -2,38 +2,38 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      collection: [],
-      displayed: [],
-      watched: [],
+      collection: {},
+      displayed: {},
+      watched: {}
     };
     this.searchHandler = this.searchHandler.bind(this);
     this.addMovieHandler = this.addMovieHandler.bind(this);
+    this.toggleWatchHandler = this.toggleWatchHandler.bind(this);
   }
 
   searchHandler(query) {
-    var relevantMovies = [];
-    this.state.collection.forEach((movie) => {
-      if (movie.title.includes(query.toUpperCase())) {
-        relevantMovies.push(movie);
+    let relevantMovies = {};
+    for (let key in this.state.collection) {
+      if (key.includes(query.toUpperCase())) {
+        relevantMovies[key] = this.state.collection[key];
       }
-    });
-    relevantMovies.length === 0 ? relevantMovies.push({title: 'No results matched your search'}) : null;
+    }
+    Object.entries(relevantMovies).length === 0 ? relevantMovies[query] = {title: 'No results matched your search'} : null;
     this.setState({displayed: relevantMovies});
   }
 
   addMovieHandler(movieTitle) {
-    let includes = false;
-    this.state.collection.forEach(function(movie) {
-      if (movie.title.toUpperCase() === movieTitle.toUpperCase()) {
-        includes = true;
-      }
-    });
-    if (!includes) {
+    let movieTitleKey = movieTitle.toUpperCase();
+    if (!this.state.collection[movieTitleKey]) {
+      let currentCollection = this.state.collection;
+      currentCollection[movieTitleKey] = {title: movieTitle};
       this.setState({
-        collection: this.state.collection.concat([{title: movieTitle}]),
-        displayed: [{title: movieTitle}]
+        collection: currentCollection
       });
     }
+  }
+
+  toggleWatchHandler() {
   }
 
   render() {

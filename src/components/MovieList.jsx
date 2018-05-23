@@ -1,7 +1,7 @@
 var MovieList = (props) => (
-  <div>
-    {props.movies.map((movie, index) => 
-      <MovieListEntry movie={movie} key={index}/>)}
+  <div className="list">
+    {Object.entries(props.movies).map((movie) => 
+      <MovieListEntry key={movie[0]} movieEntry={movie[1]}/>)}
   </div>
 );
 
