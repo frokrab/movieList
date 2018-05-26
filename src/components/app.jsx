@@ -4,10 +4,12 @@ class App extends React.Component {
     this.state = {
       collection: {},
       displayed: {},
+      displayWatched: false
     };
     this.searchHandler = this.searchHandler.bind(this);
     this.addMovieHandler = this.addMovieHandler.bind(this);
     this.toggleWatchHandler = this.toggleWatchHandler.bind(this);
+    this.toggleDisplayWatched = this.toggleDisplayWatched.bind(this);
   }
 
   searchHandler(query) {
@@ -46,6 +48,18 @@ class App extends React.Component {
     this.setState({collection: currentCollection});
   }
 
+  toggleDisplayWatched(event) {
+    if (event.target.className ==='on') {
+      this.setState({
+        displayWatched: true
+      });
+    } else if (event.target.className === 'off') {
+      this.setState({
+        displayWatched: false
+      });
+    }
+  }
+
   render() {
     return (
       <div>
@@ -53,9 +67,9 @@ class App extends React.Component {
         <Submit addMovieHandler={this.addMovieHandler}/>
         <Search searchHandler={this.searchHandler}/>
         <div>
-          <MovieList toggleWatchHandler={this.toggleWatchHandler} displayed={this.state.displayed} watched={this.state.watched} notWatched={this.state.notWatched}/>
+          <MovieList toggleDisplay={this.toggleDisplayWatched} toggleWatchHandler={this.toggleWatchHandler} displayed={this.state.displayed} displayWatched={this.state.displayWatched}/>
         </div>
       </div>
     );
-  }
+  }  
 }
