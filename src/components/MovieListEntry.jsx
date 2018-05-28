@@ -15,17 +15,17 @@ class MovieListEntry extends React.Component {
 
   render() {
     if (this.state.showInfo) {
-      return(
+      return (
         <div className="list-entry" onClick={this.toggleInfo}>
           Title: {this.props.movieEntry.title}<br />
           Year: {this.props.movieEntry.year}<br />
-          Rating: {this.props.movieEntry.rating}<br />
+          Overview: {this.props.movieEntry.overview}<br />
           <button onClick={(event) => this.props.toggleWatch(this.props.movieEntry.title)}></button>
           {this.props.movieEntry.watched[1]}
         </div>
       );
     } else {
-      return(
+      return (
         <div className="list-entry" onClick={this.toggleInfo}>
           Title: {this.props.movieEntry.title}<br />
           <button onClick={(event) => this.props.toggleWatch(this.props.movieEntry.title)}></button>

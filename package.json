@@ -4,8 +4,6 @@
   "description": "List of movies",
   "main": "index.js",
   "scripts": {
-    "test": "live-server --open=./SpecRunner.html --port=8081",
-    "postinstall": "curl -s https://raw.githubusercontent.com/reactorcore/pomander/master/bin/install | bash",
     "react-dev": "babel . --out-dir compiled --presets=env,react --ignore=node_modules,compiled --source-maps inline -w"
   },
   "repository": {
@@ -19,9 +17,7 @@
   },
   "homepage": "https://github.com/frokrab/movieList#readme",
   "dependencies": {
-    "bootstrap": "^4.0.0-alpha.2",
-    "jquery": "^3.0.0",
-    "lodash": "^4.6.1",
+    "axios": "^0.18.0",
     "react": "^0.14.7",
     "react-dom": "^0.14.7"
   },
@@ -29,10 +25,7 @@
     "babel-cli": "^6.6.5",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.5.0",
-    "chai": "^3.5.0",
     "eslint": "^4.19.1",
-    "eslint-plugin-react": "^7.8.2",
-    "mocha": "2.3.3",
-    "sinon": "1.17.3"
+    "eslint-plugin-react": "^7.8.2"
   }
 }

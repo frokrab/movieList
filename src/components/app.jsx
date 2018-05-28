@@ -2,7 +2,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      collection: window.movies,
+      collection: {},
       displayed: {},
       displayWatched: false
     };
@@ -24,37 +24,41 @@ class App extends React.Component {
   }
 
   addMovieHandler(movieTitle) {
-    let movieTitleKey = movieTitle.toUpperCase();
-    if (!this.state.collection[movieTitleKey]) {
-      let currentCollection = this.state.collection;
-      currentCollection[movieTitleKey] = {
-        title: movieTitle,
-        watched: false,
-      };
-      this.setState({
-        collection: currentCollection,
-        displayed: {movieTitleKey: {
-          title: movieTitle,
-          watched: false,
-        }}
+    axios({
+      url: `https://api.themoviedb.org/3/search/movie?api_key=${window.TMDB_API_KEY}&language=en-US&include_adult=false&query=${movieTitle}`
+    })
+      .then(response => {
+        let titleKey = response.data.results[0].title.toUpperCase();
+        if (!this.state.collection[titleKey]) {
+          let currentCollection = this.state.collection;
+          currentCollection[titleKey] = {
+            title: response.data.results[0].title,
+            year: response.data.results[0].release_date.slice(0, 4),
+            overview: response.data.results[0].overview,
+            watched: [false, 'Not Watched']
+          };
+          this.setState({
+            collection: currentCollection,
+            displayed: {title: currentCollection[titleKey]}
+          });
+        }
       });
-    }
   }
 
   toggleWatchHandler(movieTitle) {
-    let movieTitleKey = movieTitle.toUpperCase();
+    let titleKey = movieTitle.toUpperCase();
     let currentCollection = this.state.collection;
-    currentCollection[movieTitleKey].watched[0] = !currentCollection[movieTitleKey].watched[0];
-    if (currentCollection[movieTitleKey].watched[0]) {
-      currentCollection[movieTitleKey].watched[1] = 'Watched';
+    currentCollection[titleKey].watched[0] = !currentCollection[titleKey].watched[0];
+    if (currentCollection[titleKey].watched[0]) {
+      currentCollection[titleKey].watched[1] = 'Watched';
     } else {
-      currentCollection[movieTitleKey].watched[1] = 'Not Watched';
+      currentCollection[titleKey].watched[1] = 'Not Watched';
     }
     this.setState({collection: currentCollection});
   }
 
   toggleDisplayWatched(event) {
-    if (event.target.className ==='on') {
+    if (event.target.className === 'on') {
       this.setState({
         displayWatched: true
       });
