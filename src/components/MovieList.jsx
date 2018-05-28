@@ -4,8 +4,8 @@ var MovieList = (props) => (
       <button className="on" onClick={props.toggleDisplay}>Watched</button>
       <button className="off" onClick={props.toggleDisplay}>Not Watched</button>
       {Object.entries(props.displayed).map((movie) => {
-        if (movie[1].watched === props.displayWatched) {
-          return <MovieListEntry clickHandler={props.toggleWatchHandler} key={movie[0]} movieEntry={movie[1]}/>;
+        if (movie[1].watched[0] === props.displayWatched) {
+          return <MovieListEntry toggleWatch={props.toggleWatchHandler} key={movie[0]} movieEntry={movie[1]}/>;
         }
       })}
     </div>

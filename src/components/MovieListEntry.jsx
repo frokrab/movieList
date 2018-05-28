@@ -1,6 +1,37 @@
-var MovieListEntry = (props) => (
-  <div className="list-entry">
-    {props.movieEntry.title}
-    <button onClick={(event) => props.clickHandler(props.movieEntry.title)} ></button>
-  </div>
-);
+class MovieListEntry extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showInfo: false
+    };
+    this.toggleInfo = this.toggleInfo.bind(this);
+  }
+
+  toggleInfo(event) {
+    this.setState({
+      showInfo: !this.state.showInfo
+    });
+  }
+
+  render() {
+    if (this.state.showInfo) {
+      return(
+        <div className="list-entry" onClick={this.toggleInfo}>
+          Title: {this.props.movieEntry.title}<br />
+          Year: {this.props.movieEntry.year}<br />
+          Rating: {this.props.movieEntry.rating}<br />
+          <button onClick={(event) => this.props.toggleWatch(this.props.movieEntry.title)}></button>
+          {this.props.movieEntry.watched[1]}
+        </div>
+      );
+    } else {
+      return(
+        <div className="list-entry" onClick={this.toggleInfo}>
+          Title: {this.props.movieEntry.title}<br />
+          <button onClick={(event) => this.props.toggleWatch(this.props.movieEntry.title)}></button>
+          {this.props.movieEntry.watched[1]}
+        </div>
+      );
+    }
+  }
+}

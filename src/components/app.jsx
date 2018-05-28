@@ -2,7 +2,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      collection: {},
+      collection: window.movies,
       displayed: {},
       displayWatched: false
     };
@@ -29,13 +29,13 @@ class App extends React.Component {
       let currentCollection = this.state.collection;
       currentCollection[movieTitleKey] = {
         title: movieTitle,
-        watched: false
+        watched: false,
       };
       this.setState({
         collection: currentCollection,
         displayed: {movieTitleKey: {
           title: movieTitle,
-          watched: false
+          watched: false,
         }}
       });
     }
@@ -44,7 +44,12 @@ class App extends React.Component {
   toggleWatchHandler(movieTitle) {
     let movieTitleKey = movieTitle.toUpperCase();
     let currentCollection = this.state.collection;
-    currentCollection[movieTitleKey].watched = !currentCollection[movieTitleKey].watched;
+    currentCollection[movieTitleKey].watched[0] = !currentCollection[movieTitleKey].watched[0];
+    if (currentCollection[movieTitleKey].watched[0]) {
+      currentCollection[movieTitleKey].watched[1] = 'Watched';
+    } else {
+      currentCollection[movieTitleKey].watched[1] = 'Not Watched';
+    }
     this.setState({collection: currentCollection});
   }
 
